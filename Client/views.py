@@ -209,7 +209,7 @@ def updatesettings(request,id):
 def getmeter(request):
     id = request.GET.get('id')
     realtimeRecord = RealTimeBill.objects.filter(meterid_id = id, timestamp = datetime.date.today()).first()
-    realtime = round(realtimeRecord.totalconsumption/1000,2)
+    realtime = realtimeRecord.totalconsumption
     currentread = round(realtimeRecord.currentread,2)
     # Return a JSON response of the data
     return JsonResponse({'dateread': str((datetime.datetime.today())),'total':str(realtime), 'currentread':str(currentread),'amount': 'Php ' +  str(pricing(realtimeRecord.totalconsumption/1000))})
